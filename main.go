@@ -7,6 +7,7 @@ import (
 	antlr "github.com/antlr4-go/antlr/v4"
 	"sync"
 	"time"
+	"reflect"
 )
 
 type Message struct {
@@ -77,12 +78,25 @@ func main() {
 	lexer := dsl.NewdslLexer(is)
 	stream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
 	parser := dsl.NewdslParser(stream)
+
+	//entry point into program grammar rule
+	
+
 	internet.Nic = make(chan Message, NETBUF)
 	var dl dslListener
 	dl.init()
 	dl.nodeType = "null"
 	dl.currentActionType = "null"
+
 	antlr.ParseTreeWalkerDefault.Walk(&dl, parser.TypesDeclaration())
+
+	tree := parser.Program()
+	fmt.Println(tree.GetText())
+	fooType := reflect.TypeOf(tree)
+	for i := 0; i < fooType.NumMethod(); i++ {
+		method := fooType.Method(i)
+		fmt.Println(method.Name)
+	}
 	go networkHandler()
 	wg.Add(1)
 	for i, s := range dl.nodeTypes {
