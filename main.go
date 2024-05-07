@@ -7,7 +7,6 @@ import (
 	antlr "github.com/antlr4-go/antlr/v4"
 	"sync"
 	"time"
-	"reflect"
 )
 
 type Message struct {
@@ -57,17 +56,16 @@ func NodeCtx (filename string, Type string, Id int) {
 	n.Id = Id
 	n.Nic = make(chan Message, NETBUF)
 	nodePool = append(nodePool,&n)
-	var dl dslListener
-	dl.init()
-	dl.nodeType = n.Type
-	dl.thisNode = &n
+	// var dl dslListener
+	// dl.init()
+	// dl.nodeType = n.Type
+	// dl.thisNode = &n
 
-	is, _ := antlr.NewFileStream(filename)
-	lexer := dsl.NewdslLexer(is)
-	stream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
-	parser := dsl.NewdslParser(stream)
-	antlr.ParseTreeWalkerDefault.Walk(&dl, parser.Program())
-	fmt.Println(dl)
+	// is, _ := antlr.NewFileStream(filename)
+	// lexer := dsl.NewdslLexer(is)
+	// stream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
+	// parser := dsl.NewdslParser(stream)
+	//antlr.ParseTreeWalkerDefault.Walk(&dl, parser.Program())
 
 }
 var wg sync.WaitGroup
@@ -79,24 +77,22 @@ func main() {
 	stream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
 	parser := dsl.NewdslParser(stream)
 
-	//entry point into program grammar rule
+	
 	
 
 	internet.Nic = make(chan Message, NETBUF)
 	var dl dslListener
-	dl.init()
+	//dl.init()
 	dl.nodeType = "null"
 	dl.currentActionType = "null"
 
-	antlr.ParseTreeWalkerDefault.Walk(&dl, parser.TypesDeclaration())
+	//antlr.ParseTreeWalkerDefault.Walk(&dl, parser.TypesDeclaration())
 
+	//entry point into program grammar rule
 	tree := parser.Program()
-	fmt.Println(tree.GetText())
-	fooType := reflect.TypeOf(tree)
-	for i := 0; i < fooType.NumMethod(); i++ {
-		method := fooType.Method(i)
-		fmt.Println(method.Name)
-	}
+	start_walk(tree)
+	os.Exit(0)
+
 	go networkHandler()
 	wg.Add(1)
 	for i, s := range dl.nodeTypes {
@@ -104,6 +100,4 @@ func main() {
         NodeCtx(os.Args[1], s, i)
 	}
 	wg.Wait()
-
-
 }
