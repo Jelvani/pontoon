@@ -72,7 +72,7 @@ DigitSeq: Digit+ ;
 
 fragment Digit: [0-9];
 
-
+Comma : ',' ;
 
 Comment : '//' ~[\r\n]*  -> skip ;
 

@@ -69,6 +69,9 @@ func NodeCtx (filename string, Type string, Id int) {
 
 }
 var wg sync.WaitGroup
+
+var gs globalState
+
 func main() {
 	// Setup the input
 	is, _ := antlr.NewFileStream(os.Args[1])
@@ -81,23 +84,19 @@ func main() {
 	
 
 	internet.Nic = make(chan Message, NETBUF)
-	var dl dslListener
-	//dl.init()
-	dl.nodeType = "null"
-	dl.currentActionType = "null"
+	//var gs globalState
 
 	//antlr.ParseTreeWalkerDefault.Walk(&dl, parser.TypesDeclaration())
 
 	//entry point into program grammar rule
 	tree := parser.Program()
-	start_walk(tree)
+	ruleNames := parser.GetRuleNames()
+	fmt.Println(ruleNames)
+	dispatch(tree, ruleNames)
 	os.Exit(0)
 
 	go networkHandler()
 	wg.Add(1)
-	for i, s := range dl.nodeTypes {
-		wg.Add(1)
-        NodeCtx(os.Args[1], s, i)
-	}
+
 	wg.Wait()
 }

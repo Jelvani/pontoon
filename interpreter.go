@@ -4,16 +4,15 @@ import (
 	_ "math/rand"
 	_ "strconv"
 	_ "time"
-	dsl "github.com/jelvani/pontoon/parser"
+	_ "github.com/jelvani/pontoon/parser"
 	_ "strings"
 	"fmt"
 	antlr "github.com/antlr4-go/antlr/v4"
-	_ "os"
+	"os"
 	_ "reflect"
 )
 
-type dslListener struct {
-	*dsl.BasedslListener
+type globalState struct {
 	variables map[string]value
 	nodeType string
 	nodeTypes []string
@@ -31,28 +30,49 @@ type value struct {
 
 const MAXRAND = 1000
 
-func start_walk (tree antlr.ParseTree) {
+func dispatch (tree antlr.ParseTree, ruleNames []string) {
 
 	children := tree.GetChildren()
 	for _, child := range children {
 		switch c := child.(type) {
-			
-			case antlr.TerminalNode:
-				//done
-			case antlr.ParseTree:
-				start_walk(c)
-				// Non-terminal node
-				//fmt.Println(c.GetText())
-			case antlr.RuleNode:
+			case antlr.RuleContext:
+				//idea: https://github.com/huahuayu/go-dynamic-call
+				var rule string = ruleNames[c.GetRuleIndex()]
+
+				fmt.Println(rule)
+
+				switch rule {
+					case "typesDeclaration":
+						fmt.Println("types!!")
+						typesDeclaration(c)
+				}
+				dispatch(c,ruleNames)
 				
 		}
 	}
 	
 }
 
-func visit(tree antlr.ParseTree) {
+func typesDeclaration(node antlr.ParseTree) {
+	children := node.GetChildren()
+	fmt.Println("called type!")
+	for _, child := range children {
+		switch c := child.(type) {
+			case antlr.ParseTree:
+				nodeType := c.GetText()
+				if nodeType != "," {
+					gs.nodeTypes = append(gs.nodeTypes, nodeType)
+				}
+		}
 
+	}
+
+	for i, s := range gs.nodeTypes {
+		wg.Add(1)
+        go NodeCtx(os.Args[1], s, i)
+	}
 }
+
 
 
 // //on action exit we flush the instruction buffer

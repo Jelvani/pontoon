@@ -33,14 +33,14 @@ var DslParserStaticData struct {
 func dslParserInit() {
 	staticData := &DslParserStaticData
 	staticData.LiteralNames = []string{
-		"", "'types:'", "','", "'('", "')'", "'action'", "'{'", "'}'", "'monitor'",
+		"", "'types:'", "'('", "')'", "'action'", "'{'", "'}'", "'monitor'",
 		"':'", "'var'", "'rand'", "'tag'", "'store'", "'type'", "'=>'", "'<='",
-		"'.'", "'\"'", "'int'", "", "'='",
+		"'.'", "'\"'", "'int'", "", "'='", "", "", "','",
 	}
 	staticData.SymbolicNames = []string{
 		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-		"", "", "", "Wildcard", "Assign", "StringLiteral", "DigitSeq", "Comment",
-		"Whitespace", "Newline",
+		"", "", "Wildcard", "Assign", "StringLiteral", "DigitSeq", "Comma",
+		"Comment", "Whitespace", "Newline",
 	}
 	staticData.RuleNames = []string{
 		"typesDeclaration", "program", "tuple", "tuplelist", "decleration",
@@ -68,53 +68,53 @@ func dslParserInit() {
 		15, 1, 15, 1, 16, 1, 16, 1, 17, 1, 17, 1, 17, 1, 17, 1, 18, 1, 18, 3, 18,
 		155, 8, 18, 1, 19, 1, 19, 1, 20, 1, 20, 1, 20, 1, 21, 1, 21, 1, 21, 0,
 		0, 22, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34,
-		36, 38, 40, 42, 0, 1, 1, 0, 11, 13, 158, 0, 44, 1, 0, 0, 0, 2, 53, 1, 0,
+		36, 38, 40, 42, 0, 1, 1, 0, 10, 12, 158, 0, 44, 1, 0, 0, 0, 2, 53, 1, 0,
 		0, 0, 4, 62, 1, 0, 0, 0, 6, 69, 1, 0, 0, 0, 8, 77, 1, 0, 0, 0, 10, 79,
 		1, 0, 0, 0, 12, 86, 1, 0, 0, 0, 14, 93, 1, 0, 0, 0, 16, 97, 1, 0, 0, 0,
 		18, 105, 1, 0, 0, 0, 20, 107, 1, 0, 0, 0, 22, 115, 1, 0, 0, 0, 24, 124,
 		1, 0, 0, 0, 26, 128, 1, 0, 0, 0, 28, 134, 1, 0, 0, 0, 30, 141, 1, 0, 0,
 		0, 32, 146, 1, 0, 0, 0, 34, 148, 1, 0, 0, 0, 36, 154, 1, 0, 0, 0, 38, 156,
 		1, 0, 0, 0, 40, 158, 1, 0, 0, 0, 42, 161, 1, 0, 0, 0, 44, 45, 5, 1, 0,
-		0, 45, 50, 3, 36, 18, 0, 46, 47, 5, 2, 0, 0, 47, 49, 3, 36, 18, 0, 48,
+		0, 45, 50, 3, 36, 18, 0, 46, 47, 5, 23, 0, 0, 47, 49, 3, 36, 18, 0, 48,
 		46, 1, 0, 0, 0, 49, 52, 1, 0, 0, 0, 50, 48, 1, 0, 0, 0, 50, 51, 1, 0, 0,
 		0, 51, 1, 1, 0, 0, 0, 52, 50, 1, 0, 0, 0, 53, 57, 3, 8, 4, 0, 54, 56, 3,
 		8, 4, 0, 55, 54, 1, 0, 0, 0, 56, 59, 1, 0, 0, 0, 57, 55, 1, 0, 0, 0, 57,
 		58, 1, 0, 0, 0, 58, 60, 1, 0, 0, 0, 59, 57, 1, 0, 0, 0, 60, 61, 5, 0, 0,
-		1, 61, 3, 1, 0, 0, 0, 62, 63, 5, 3, 0, 0, 63, 64, 3, 6, 3, 0, 64, 65, 5,
-		4, 0, 0, 65, 5, 1, 0, 0, 0, 66, 67, 3, 42, 21, 0, 67, 68, 5, 2, 0, 0, 68,
-		70, 1, 0, 0, 0, 69, 66, 1, 0, 0, 0, 70, 71, 1, 0, 0, 0, 71, 69, 1, 0, 0,
-		0, 71, 72, 1, 0, 0, 0, 72, 7, 1, 0, 0, 0, 73, 78, 3, 10, 5, 0, 74, 78,
-		3, 0, 0, 0, 75, 78, 3, 12, 6, 0, 76, 78, 3, 14, 7, 0, 77, 73, 1, 0, 0,
-		0, 77, 74, 1, 0, 0, 0, 77, 75, 1, 0, 0, 0, 77, 76, 1, 0, 0, 0, 78, 9, 1,
-		0, 0, 0, 79, 80, 5, 5, 0, 0, 80, 81, 3, 36, 18, 0, 81, 82, 3, 42, 21, 0,
-		82, 83, 5, 6, 0, 0, 83, 84, 3, 24, 12, 0, 84, 85, 5, 7, 0, 0, 85, 11, 1,
-		0, 0, 0, 86, 87, 5, 8, 0, 0, 87, 88, 3, 36, 18, 0, 88, 89, 3, 42, 21, 0,
-		89, 90, 5, 6, 0, 0, 90, 91, 3, 24, 12, 0, 91, 92, 5, 7, 0, 0, 92, 13, 1,
-		0, 0, 0, 93, 94, 3, 42, 21, 0, 94, 95, 5, 9, 0, 0, 95, 96, 3, 34, 17, 0,
-		96, 15, 1, 0, 0, 0, 97, 98, 5, 10, 0, 0, 98, 99, 3, 42, 21, 0, 99, 103,
-		5, 21, 0, 0, 100, 104, 3, 4, 2, 0, 101, 104, 5, 23, 0, 0, 102, 104, 3,
+		1, 61, 3, 1, 0, 0, 0, 62, 63, 5, 2, 0, 0, 63, 64, 3, 6, 3, 0, 64, 65, 5,
+		3, 0, 0, 65, 5, 1, 0, 0, 0, 66, 67, 3, 42, 21, 0, 67, 68, 5, 23, 0, 0,
+		68, 70, 1, 0, 0, 0, 69, 66, 1, 0, 0, 0, 70, 71, 1, 0, 0, 0, 71, 69, 1,
+		0, 0, 0, 71, 72, 1, 0, 0, 0, 72, 7, 1, 0, 0, 0, 73, 78, 3, 10, 5, 0, 74,
+		78, 3, 0, 0, 0, 75, 78, 3, 12, 6, 0, 76, 78, 3, 14, 7, 0, 77, 73, 1, 0,
+		0, 0, 77, 74, 1, 0, 0, 0, 77, 75, 1, 0, 0, 0, 77, 76, 1, 0, 0, 0, 78, 9,
+		1, 0, 0, 0, 79, 80, 5, 4, 0, 0, 80, 81, 3, 36, 18, 0, 81, 82, 3, 42, 21,
+		0, 82, 83, 5, 5, 0, 0, 83, 84, 3, 24, 12, 0, 84, 85, 5, 6, 0, 0, 85, 11,
+		1, 0, 0, 0, 86, 87, 5, 7, 0, 0, 87, 88, 3, 36, 18, 0, 88, 89, 3, 42, 21,
+		0, 89, 90, 5, 5, 0, 0, 90, 91, 3, 24, 12, 0, 91, 92, 5, 6, 0, 0, 92, 13,
+		1, 0, 0, 0, 93, 94, 3, 42, 21, 0, 94, 95, 5, 8, 0, 0, 95, 96, 3, 34, 17,
+		0, 96, 15, 1, 0, 0, 0, 97, 98, 5, 9, 0, 0, 98, 99, 3, 42, 21, 0, 99, 103,
+		5, 20, 0, 0, 100, 104, 3, 4, 2, 0, 101, 104, 5, 22, 0, 0, 102, 104, 3,
 		20, 10, 0, 103, 100, 1, 0, 0, 0, 103, 101, 1, 0, 0, 0, 103, 102, 1, 0,
 		0, 0, 104, 17, 1, 0, 0, 0, 105, 106, 7, 0, 0, 0, 106, 19, 1, 0, 0, 0, 107,
-		108, 3, 18, 9, 0, 108, 109, 5, 3, 0, 0, 109, 110, 3, 22, 11, 0, 110, 111,
-		5, 4, 0, 0, 111, 21, 1, 0, 0, 0, 112, 113, 5, 14, 0, 0, 113, 116, 3, 36,
+		108, 3, 18, 9, 0, 108, 109, 5, 2, 0, 0, 109, 110, 3, 22, 11, 0, 110, 111,
+		5, 3, 0, 0, 111, 21, 1, 0, 0, 0, 112, 113, 5, 13, 0, 0, 113, 116, 3, 36,
 		18, 0, 114, 116, 3, 42, 21, 0, 115, 112, 1, 0, 0, 0, 115, 114, 1, 0, 0,
 		0, 116, 23, 1, 0, 0, 0, 117, 123, 3, 26, 13, 0, 118, 123, 3, 28, 14, 0,
 		119, 123, 3, 30, 15, 0, 120, 123, 3, 16, 8, 0, 121, 123, 3, 32, 16, 0,
 		122, 117, 1, 0, 0, 0, 122, 118, 1, 0, 0, 0, 122, 119, 1, 0, 0, 0, 122,
 		120, 1, 0, 0, 0, 122, 121, 1, 0, 0, 0, 123, 125, 1, 0, 0, 0, 124, 122,
 		1, 0, 0, 0, 125, 126, 1, 0, 0, 0, 126, 124, 1, 0, 0, 0, 126, 127, 1, 0,
-		0, 0, 127, 25, 1, 0, 0, 0, 128, 129, 3, 40, 20, 0, 129, 130, 5, 21, 0,
-		0, 130, 131, 5, 20, 0, 0, 131, 27, 1, 0, 0, 0, 132, 135, 3, 34, 17, 0,
+		0, 0, 127, 25, 1, 0, 0, 0, 128, 129, 3, 40, 20, 0, 129, 130, 5, 20, 0,
+		0, 130, 131, 5, 19, 0, 0, 131, 27, 1, 0, 0, 0, 132, 135, 3, 34, 17, 0,
 		133, 135, 3, 42, 21, 0, 134, 132, 1, 0, 0, 0, 134, 133, 1, 0, 0, 0, 135,
-		136, 1, 0, 0, 0, 136, 137, 5, 15, 0, 0, 137, 138, 3, 42, 21, 0, 138, 29,
+		136, 1, 0, 0, 0, 136, 137, 5, 14, 0, 0, 137, 138, 3, 42, 21, 0, 138, 29,
 		1, 0, 0, 0, 139, 142, 3, 34, 17, 0, 140, 142, 3, 42, 21, 0, 141, 139, 1,
-		0, 0, 0, 141, 140, 1, 0, 0, 0, 142, 143, 1, 0, 0, 0, 143, 144, 5, 16, 0,
-		0, 144, 145, 3, 42, 21, 0, 145, 31, 1, 0, 0, 0, 146, 147, 5, 17, 0, 0,
-		147, 33, 1, 0, 0, 0, 148, 149, 5, 18, 0, 0, 149, 150, 5, 22, 0, 0, 150,
-		151, 5, 18, 0, 0, 151, 35, 1, 0, 0, 0, 152, 155, 5, 22, 0, 0, 153, 155,
+		0, 0, 0, 141, 140, 1, 0, 0, 0, 142, 143, 1, 0, 0, 0, 143, 144, 5, 15, 0,
+		0, 144, 145, 3, 42, 21, 0, 145, 31, 1, 0, 0, 0, 146, 147, 5, 16, 0, 0,
+		147, 33, 1, 0, 0, 0, 148, 149, 5, 17, 0, 0, 149, 150, 5, 21, 0, 0, 150,
+		151, 5, 17, 0, 0, 151, 35, 1, 0, 0, 0, 152, 155, 5, 21, 0, 0, 153, 155,
 		3, 38, 19, 0, 154, 152, 1, 0, 0, 0, 154, 153, 1, 0, 0, 0, 155, 37, 1, 0,
-		0, 0, 156, 157, 5, 19, 0, 0, 157, 39, 1, 0, 0, 0, 158, 159, 3, 36, 18,
-		0, 159, 160, 3, 42, 21, 0, 160, 41, 1, 0, 0, 0, 161, 162, 5, 22, 0, 0,
+		0, 0, 156, 157, 5, 18, 0, 0, 157, 39, 1, 0, 0, 0, 158, 159, 3, 36, 18,
+		0, 159, 160, 3, 42, 21, 0, 160, 41, 1, 0, 0, 0, 161, 162, 5, 21, 0, 0,
 		162, 43, 1, 0, 0, 0, 11, 50, 57, 71, 77, 103, 115, 122, 126, 134, 141,
 		154,
 	}
@@ -173,11 +173,11 @@ const (
 	dslParserT__15         = 16
 	dslParserT__16         = 17
 	dslParserT__17         = 18
-	dslParserT__18         = 19
-	dslParserWildcard      = 20
-	dslParserAssign        = 21
-	dslParserStringLiteral = 22
-	dslParserDigitSeq      = 23
+	dslParserWildcard      = 19
+	dslParserAssign        = 20
+	dslParserStringLiteral = 21
+	dslParserDigitSeq      = 22
+	dslParserComma         = 23
 	dslParserComment       = 24
 	dslParserWhitespace    = 25
 	dslParserNewline       = 26
@@ -219,6 +219,8 @@ type ITypesDeclarationContext interface {
 	// Getter signatures
 	AllType_() []ITypeContext
 	Type_(i int) ITypeContext
+	AllComma() []antlr.TerminalNode
+	Comma(i int) antlr.TerminalNode
 
 	// IsTypesDeclarationContext differentiates from other interfaces.
 	IsTypesDeclarationContext()
@@ -297,6 +299,14 @@ func (s *TypesDeclarationContext) Type_(i int) ITypeContext {
 	return t.(ITypeContext)
 }
 
+func (s *TypesDeclarationContext) AllComma() []antlr.TerminalNode {
+	return s.GetTokens(dslParserComma)
+}
+
+func (s *TypesDeclarationContext) Comma(i int) antlr.TerminalNode {
+	return s.GetToken(dslParserComma, i)
+}
+
 func (s *TypesDeclarationContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
@@ -314,16 +324,6 @@ func (s *TypesDeclarationContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *TypesDeclarationContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(dslListener); ok {
 		listenerT.ExitTypesDeclaration(s)
-	}
-}
-
-func (s *TypesDeclarationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitTypesDeclaration(s)
-
-	default:
-		return t.VisitChildren(s)
 	}
 }
 
@@ -352,10 +352,10 @@ func (p *dslParser) TypesDeclaration() (localctx ITypesDeclarationContext) {
 	}
 	_la = p.GetTokenStream().LA(1)
 
-	for _la == dslParserT__1 {
+	for _la == dslParserComma {
 		{
 			p.SetState(46)
-			p.Match(dslParserT__1)
+			p.Match(dslParserComma)
 			if p.HasError() {
 				// Recognition error - abort rule
 				goto errorExit
@@ -500,16 +500,6 @@ func (s *ProgramContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *ProgramContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitProgram(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *dslParser) Program() (localctx IProgramContext) {
 	localctx = NewProgramContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 2, dslParserRULE_program)
@@ -527,7 +517,7 @@ func (p *dslParser) Program() (localctx IProgramContext) {
 	}
 	_la = p.GetTokenStream().LA(1)
 
-	for (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&4194594) != 0 {
+	for (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&2097298) != 0 {
 		{
 			p.SetState(54)
 			p.Decleration()
@@ -644,23 +634,13 @@ func (s *TupleContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *TupleContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitTuple(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *dslParser) Tuple() (localctx ITupleContext) {
 	localctx = NewTupleContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 4, dslParserRULE_tuple)
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(62)
-		p.Match(dslParserT__2)
+		p.Match(dslParserT__1)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
@@ -672,7 +652,7 @@ func (p *dslParser) Tuple() (localctx ITupleContext) {
 	}
 	{
 		p.SetState(64)
-		p.Match(dslParserT__3)
+		p.Match(dslParserT__2)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
@@ -702,6 +682,8 @@ type ITuplelistContext interface {
 	// Getter signatures
 	AllIdentifier() []IIdentifierContext
 	Identifier(i int) IIdentifierContext
+	AllComma() []antlr.TerminalNode
+	Comma(i int) antlr.TerminalNode
 
 	// IsTuplelistContext differentiates from other interfaces.
 	IsTuplelistContext()
@@ -780,6 +762,14 @@ func (s *TuplelistContext) Identifier(i int) IIdentifierContext {
 	return t.(IIdentifierContext)
 }
 
+func (s *TuplelistContext) AllComma() []antlr.TerminalNode {
+	return s.GetTokens(dslParserComma)
+}
+
+func (s *TuplelistContext) Comma(i int) antlr.TerminalNode {
+	return s.GetToken(dslParserComma, i)
+}
+
 func (s *TuplelistContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
@@ -797,16 +787,6 @@ func (s *TuplelistContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *TuplelistContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(dslListener); ok {
 		listenerT.ExitTuplelist(s)
-	}
-}
-
-func (s *TuplelistContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitTuplelist(s)
-
-	default:
-		return t.VisitChildren(s)
 	}
 }
 
@@ -830,7 +810,7 @@ func (p *dslParser) Tuplelist() (localctx ITuplelistContext) {
 		}
 		{
 			p.SetState(67)
-			p.Match(dslParserT__1)
+			p.Match(dslParserComma)
 			if p.HasError() {
 				// Recognition error - abort rule
 				goto errorExit
@@ -991,16 +971,6 @@ func (s *DeclerationContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *DeclerationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitDecleration(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *dslParser) Decleration() (localctx IDeclerationContext) {
 	localctx = NewDeclerationContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 8, dslParserRULE_decleration)
@@ -1011,7 +981,7 @@ func (p *dslParser) Decleration() (localctx IDeclerationContext) {
 	}
 
 	switch p.GetTokenStream().LA(1) {
-	case dslParserT__4:
+	case dslParserT__3:
 		p.EnterOuterAlt(localctx, 1)
 		{
 			p.SetState(73)
@@ -1025,7 +995,7 @@ func (p *dslParser) Decleration() (localctx IDeclerationContext) {
 			p.TypesDeclaration()
 		}
 
-	case dslParserT__7:
+	case dslParserT__6:
 		p.EnterOuterAlt(localctx, 3)
 		{
 			p.SetState(75)
@@ -1173,23 +1143,13 @@ func (s *ActionDeclarationContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *ActionDeclarationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitActionDeclaration(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *dslParser) ActionDeclaration() (localctx IActionDeclarationContext) {
 	localctx = NewActionDeclarationContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 10, dslParserRULE_actionDeclaration)
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(79)
-		p.Match(dslParserT__4)
+		p.Match(dslParserT__3)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
@@ -1205,7 +1165,7 @@ func (p *dslParser) ActionDeclaration() (localctx IActionDeclarationContext) {
 	}
 	{
 		p.SetState(82)
-		p.Match(dslParserT__5)
+		p.Match(dslParserT__4)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
@@ -1217,7 +1177,7 @@ func (p *dslParser) ActionDeclaration() (localctx IActionDeclarationContext) {
 	}
 	{
 		p.SetState(84)
-		p.Match(dslParserT__6)
+		p.Match(dslParserT__5)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
@@ -1353,23 +1313,13 @@ func (s *MonitorDeclarationContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *MonitorDeclarationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitMonitorDeclaration(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *dslParser) MonitorDeclaration() (localctx IMonitorDeclarationContext) {
 	localctx = NewMonitorDeclarationContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 12, dslParserRULE_monitorDeclaration)
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(86)
-		p.Match(dslParserT__7)
+		p.Match(dslParserT__6)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
@@ -1385,7 +1335,7 @@ func (p *dslParser) MonitorDeclaration() (localctx IMonitorDeclarationContext) {
 	}
 	{
 		p.SetState(89)
-		p.Match(dslParserT__5)
+		p.Match(dslParserT__4)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
@@ -1397,7 +1347,7 @@ func (p *dslParser) MonitorDeclaration() (localctx IMonitorDeclarationContext) {
 	}
 	{
 		p.SetState(91)
-		p.Match(dslParserT__6)
+		p.Match(dslParserT__5)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
@@ -1516,16 +1466,6 @@ func (s *MessageDeclarationContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *MessageDeclarationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitMessageDeclaration(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *dslParser) MessageDeclaration() (localctx IMessageDeclarationContext) {
 	localctx = NewMessageDeclarationContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 14, dslParserRULE_messageDeclaration)
@@ -1536,7 +1476,7 @@ func (p *dslParser) MessageDeclaration() (localctx IMessageDeclarationContext) {
 	}
 	{
 		p.SetState(94)
-		p.Match(dslParserT__8)
+		p.Match(dslParserT__7)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
@@ -1686,23 +1626,13 @@ func (s *VarDeclarationContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *VarDeclarationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitVarDeclaration(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *dslParser) VarDeclaration() (localctx IVarDeclarationContext) {
 	localctx = NewVarDeclarationContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 16, dslParserRULE_varDeclaration)
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(97)
-		p.Match(dslParserT__9)
+		p.Match(dslParserT__8)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
@@ -1727,7 +1657,7 @@ func (p *dslParser) VarDeclaration() (localctx IVarDeclarationContext) {
 	}
 
 	switch p.GetTokenStream().LA(1) {
-	case dslParserT__2:
+	case dslParserT__1:
 		{
 			p.SetState(100)
 			p.Tuple()
@@ -1743,7 +1673,7 @@ func (p *dslParser) VarDeclaration() (localctx IVarDeclarationContext) {
 			}
 		}
 
-	case dslParserT__10, dslParserT__11, dslParserT__12:
+	case dslParserT__9, dslParserT__10, dslParserT__11:
 		{
 			p.SetState(102)
 			p.Func_()
@@ -1828,16 +1758,6 @@ func (s *BuiltinsContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *BuiltinsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitBuiltins(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *dslParser) Builtins() (localctx IBuiltinsContext) {
 	localctx = NewBuiltinsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 18, dslParserRULE_builtins)
@@ -1848,7 +1768,7 @@ func (p *dslParser) Builtins() (localctx IBuiltinsContext) {
 		p.SetState(105)
 		_la = p.GetTokenStream().LA(1)
 
-		if !((int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&14336) != 0) {
+		if !((int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&7168) != 0) {
 			p.GetErrorHandler().RecoverInline(p)
 		} else {
 			p.GetErrorHandler().ReportMatch(p)
@@ -1968,16 +1888,6 @@ func (s *FuncContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *FuncContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitFunc(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *dslParser) Func_() (localctx IFuncContext) {
 	localctx = NewFuncContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 20, dslParserRULE_func)
@@ -1988,7 +1898,7 @@ func (p *dslParser) Func_() (localctx IFuncContext) {
 	}
 	{
 		p.SetState(108)
-		p.Match(dslParserT__2)
+		p.Match(dslParserT__1)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
@@ -2000,7 +1910,7 @@ func (p *dslParser) Func_() (localctx IFuncContext) {
 	}
 	{
 		p.SetState(110)
-		p.Match(dslParserT__3)
+		p.Match(dslParserT__2)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
@@ -2119,16 +2029,6 @@ func (s *ArgsContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *ArgsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitArgs(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *dslParser) Args() (localctx IArgsContext) {
 	localctx = NewArgsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 22, dslParserRULE_args)
@@ -2139,11 +2039,11 @@ func (p *dslParser) Args() (localctx IArgsContext) {
 	}
 
 	switch p.GetTokenStream().LA(1) {
-	case dslParserT__13:
+	case dslParserT__12:
 		p.EnterOuterAlt(localctx, 1)
 		{
 			p.SetState(112)
-			p.Match(dslParserT__13)
+			p.Match(dslParserT__12)
 			if p.HasError() {
 				// Recognition error - abort rule
 				goto errorExit
@@ -2459,16 +2359,6 @@ func (s *StatementListContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *StatementListContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitStatementList(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *dslParser) StatementList() (localctx IStatementListContext) {
 	localctx = NewStatementListContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 24, dslParserRULE_statementList)
@@ -2482,7 +2372,7 @@ func (p *dslParser) StatementList() (localctx IStatementListContext) {
 	}
 	_la = p.GetTokenStream().LA(1)
 
-	for ok := true; ok; ok = ((int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&5112832) != 0) {
+	for ok := true; ok; ok = ((int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&2556416) != 0) {
 		p.SetState(122)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
@@ -2634,16 +2524,6 @@ func (s *AssignmentExpressionContext) EnterRule(listener antlr.ParseTreeListener
 func (s *AssignmentExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(dslListener); ok {
 		listenerT.ExitAssignmentExpression(s)
-	}
-}
-
-func (s *AssignmentExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitAssignmentExpression(s)
-
-	default:
-		return t.VisitChildren(s)
 	}
 }
 
@@ -2810,16 +2690,6 @@ func (s *SendExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *SendExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitSendExpression(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *dslParser) SendExpression() (localctx ISendExpressionContext) {
 	localctx = NewSendExpressionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 28, dslParserRULE_sendExpression)
@@ -2831,7 +2701,7 @@ func (p *dslParser) SendExpression() (localctx ISendExpressionContext) {
 	}
 
 	switch p.GetTokenStream().LA(1) {
-	case dslParserT__17:
+	case dslParserT__16:
 		{
 			p.SetState(132)
 			p.Message()
@@ -2849,7 +2719,7 @@ func (p *dslParser) SendExpression() (localctx ISendExpressionContext) {
 	}
 	{
 		p.SetState(136)
-		p.Match(dslParserT__14)
+		p.Match(dslParserT__13)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
@@ -2998,16 +2868,6 @@ func (s *RecvExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *RecvExpressionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitRecvExpression(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *dslParser) RecvExpression() (localctx IRecvExpressionContext) {
 	localctx = NewRecvExpressionContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 30, dslParserRULE_recvExpression)
@@ -3019,7 +2879,7 @@ func (p *dslParser) RecvExpression() (localctx IRecvExpressionContext) {
 	}
 
 	switch p.GetTokenStream().LA(1) {
-	case dslParserT__17:
+	case dslParserT__16:
 		{
 			p.SetState(139)
 			p.Message()
@@ -3037,7 +2897,7 @@ func (p *dslParser) RecvExpression() (localctx IRecvExpressionContext) {
 	}
 	{
 		p.SetState(143)
-		p.Match(dslParserT__15)
+		p.Match(dslParserT__14)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
@@ -3122,23 +2982,13 @@ func (s *BarrierContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *BarrierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitBarrier(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *dslParser) Barrier() (localctx IBarrierContext) {
 	localctx = NewBarrierContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 32, dslParserRULE_barrier)
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(146)
-		p.Match(dslParserT__16)
+		p.Match(dslParserT__15)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
@@ -3228,23 +3078,13 @@ func (s *MessageContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *MessageContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitMessage(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *dslParser) Message() (localctx IMessageContext) {
 	localctx = NewMessageContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 34, dslParserRULE_message)
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(148)
-		p.Match(dslParserT__17)
+		p.Match(dslParserT__16)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
@@ -3260,7 +3100,7 @@ func (p *dslParser) Message() (localctx IMessageContext) {
 	}
 	{
 		p.SetState(150)
-		p.Match(dslParserT__17)
+		p.Match(dslParserT__16)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
@@ -3367,16 +3207,6 @@ func (s *TypeContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *TypeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitType(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *dslParser) Type_() (localctx ITypeContext) {
 	localctx = NewTypeContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 36, dslParserRULE_type)
@@ -3398,7 +3228,7 @@ func (p *dslParser) Type_() (localctx ITypeContext) {
 			}
 		}
 
-	case dslParserT__18:
+	case dslParserT__17:
 		p.EnterOuterAlt(localctx, 2)
 		{
 			p.SetState(153)
@@ -3484,23 +3314,13 @@ func (s *PrimitiveContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *PrimitiveContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitPrimitive(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *dslParser) Primitive() (localctx IPrimitiveContext) {
 	localctx = NewPrimitiveContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 38, dslParserRULE_primitive)
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(156)
-		p.Match(dslParserT__18)
+		p.Match(dslParserT__17)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
@@ -3619,16 +3439,6 @@ func (s *VariableContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *VariableContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitVariable(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *dslParser) Variable() (localctx IVariableContext) {
 	localctx = NewVariableContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 40, dslParserRULE_variable)
@@ -3722,16 +3532,6 @@ func (s *IdentifierContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *IdentifierContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(dslListener); ok {
 		listenerT.ExitIdentifier(s)
-	}
-}
-
-func (s *IdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case dslVisitor:
-		return t.VisitIdentifier(s)
-
-	default:
-		return t.VisitChildren(s)
 	}
 }
 
