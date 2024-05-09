@@ -49,13 +49,14 @@ func networkHandler () {
 }
 
 
-func NodeCtx (filename string, Type string, Id int) {
+func NodeCtx (filename string, Type string, Id int, ruleNames []string) {
 	defer wg.Done()
 	var n Node
 	n.Type = Type
 	n.Id = Id
 	n.Nic = make(chan Message, NETBUF)
 	nodePool = append(nodePool,&n)
+	dispatch(tree, ruleNames)
 	// var dl dslListener
 	// dl.init()
 	// dl.nodeType = n.Type
@@ -92,11 +93,16 @@ func main() {
 	tree := parser.Program()
 	ruleNames := parser.GetRuleNames()
 	fmt.Println(ruleNames)
-	dispatch(tree, ruleNames)
+	initState(tree, ruleNames)
+	
 	os.Exit(0)
 
 	go networkHandler()
 	wg.Add(1)
+	for i, s := range gs.nodeTypes {
+		wg.Add(1)
+        go NodeCtx(os.Args[1], s, i, ruleNames)
+	}
 
 	wg.Wait()
 }

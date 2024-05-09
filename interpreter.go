@@ -8,7 +8,7 @@ import (
 	_ "strings"
 	"fmt"
 	antlr "github.com/antlr4-go/antlr/v4"
-	"os"
+	_ "os"
 	_ "reflect"
 )
 
@@ -30,13 +30,12 @@ type value struct {
 
 const MAXRAND = 1000
 
-func dispatch (tree antlr.ParseTree, ruleNames []string) {
+func initState (tree antlr.ParseTree, ruleNames []string) {
 
 	children := tree.GetChildren()
 	for _, child := range children {
 		switch c := child.(type) {
 			case antlr.RuleContext:
-				//idea: https://github.com/huahuayu/go-dynamic-call
 				var rule string = ruleNames[c.GetRuleIndex()]
 
 				fmt.Println(rule)
@@ -46,13 +45,14 @@ func dispatch (tree antlr.ParseTree, ruleNames []string) {
 						fmt.Println("types!!")
 						typesDeclaration(c)
 				}
-				dispatch(c,ruleNames)
+				initState(c,ruleNames)
 				
 		}
 	}
 	
 }
 
+//add nodetypes to global state
 func typesDeclaration(node antlr.ParseTree) {
 	children := node.GetChildren()
 	fmt.Println("called type!")
@@ -64,12 +64,28 @@ func typesDeclaration(node antlr.ParseTree) {
 					gs.nodeTypes = append(gs.nodeTypes, nodeType)
 				}
 		}
-
 	}
+}
 
-	for i, s := range gs.nodeTypes {
-		wg.Add(1)
-        go NodeCtx(os.Args[1], s, i)
+func dispatch (tree antlr.ParseTree, ruleNames []string) {
+
+	children := tree.GetChildren()
+	for _, child := range children {
+		switch c := child.(type) {
+			case antlr.RuleContext:
+				var rule string = ruleNames[c.GetRuleIndex()]
+
+				fmt.Println(rule)
+
+				switch rule {
+					case "assignmentExpression":
+						fmt.Println("assignmentExpression!!")
+						
+				}
+
+				dispatch(c,ruleNames)
+				
+		}
 	}
 }
 
@@ -81,35 +97,45 @@ func typesDeclaration(node antlr.ParseTree) {
 
 // }
 
-// func WalkAssignmentExpression(tree antlr.ParseTree) {
-// 	if s.nodeType != s.currentActionType {
-// 		return
-// 	}
-// 	var v value
-// 	v.type_ = ctx.Variable().Type_().GetText()
+func assignmentExpression(tree antlr.ParseTree) {
+	var v value
+	switch c := child.(type) {
+	case antlr.ParseTree:
+		var rule string = ruleNames[c.GetRuleIndex()]
+
+		fmt.Println(rule)
+
+		switch rule {
+			case "assignmentExpression":
+				fmt.Println("assignmentExpression!!")
+				
+		}
+		
+	}
+	// v.type_ = ctx.Variable().Type_().GetText()
 	
-// 	v.val = ctx.Wildcard().GetText()
-// 	var t = strings.Split(v.val, "_")
-// 	i,err := strconv.Atoi(t[1])
-// 	if err != nil {
-//         // ... handle error
-//         panic(err)
-//     }
-// 	var validNodeIds []*Node
-// 	for _,n := range nodePool {
-// 		if i <= 0 {
-// 			break
-// 		}
-// 		if n.Type == v.type_ {
-// 			validNodeIds = append(validNodeIds,n)
-// 		}
-// 		i = i-1
+	// v.val = ctx.Wildcard().GetText()
+	// var t = strings.Split(v.val, "_")
+	// i,err := strconv.Atoi(t[1])
+	// if err != nil {
+    //     // ... handle error
+    //     panic(err)
+    // }
+	// var validNodeIds []*Node
+	// for _,n := range nodePool {
+	// 	if i <= 0 {
+	// 		break
+	// 	}
+	// 	if n.Type == v.type_ {
+	// 		validNodeIds = append(validNodeIds,n)
+	// 	}
+	// 	i = i-1
 
-// 	}
-// 	v.validNodeIds = validNodeIds
-// 	s.variables[ctx.Variable().Identifier().GetText()] = v
+	// }
+	// v.validNodeIds = validNodeIds
+	// s.variables[ctx.Variable().Identifier().GetText()] = v
 
-// }
+}
 
 
 // func WalkVarDeclaration(tree antlr.ParseTree) {
